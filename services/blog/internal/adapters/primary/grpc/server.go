@@ -1,51 +1,32 @@
 package grpc_adapter
 
 import (
-	"context"
 	"fmt"
 	"net"
 
-	auth_service "github.com/tahadostifam/go-hexagonal-architecture/internal/core/services/auth"
+	article_service "github.com/tahadostifam/go-hexagonal-architecture/internal/core/services/article"
 	"github.com/tahadostifam/go-hexagonal-architecture/protobuf/auth"
 	"google.golang.org/grpc"
 )
 
 type App struct {
-	authService auth_service.Api
-	host        string
-	port        int
-	server      *grpc.Server
+	articleService article_service.Api
+	host           string
+	port           int
+	server         *grpc.Server
 }
 
-type authServerImpl struct {
+type articleServerImpl struct {
 	auth.UnimplementedAuthServer
-	authService auth_service.Api
+	articleService article_service.Api
 }
 
-func (a authServerImpl) Authenticate(ctx context.Context, req *auth.AuthenticateRequest) (*auth.AuthenticateResponse, error) {
-	panic("unimplemented")
-}
-
-func (a authServerImpl) Login(ctx context.Context, req *auth.LoginRequest) (*auth.LoginResponse, error) {
-	_, err := a.authService.Login(ctx, req.PhoneNumber)
-	if err != nil {
-		return nil, err
-	}
-
-	return &auth.LoginResponse{}, nil
-}
-
-// SubmitOtp implements auth.AuthServer.
-func (a authServerImpl) SubmitOtp(context.Context, *auth.SubmitOtpRequest) (*auth.SubmitOtpResponse, error) {
-	panic("unimplemented")
-}
-
-func NewGrpcServer(authService auth_service.Api, host string, port int) *App {
+func NewGrpcServer(articleService article_service.Api, host string, port int) *App {
 	s := grpc.NewServer()
 
-	auth.RegisterAuthServer(s, authServerImpl{authService: authService})
+	auth.RegisterAuthServer(s, articleServerImpl{articleService: articleService})
 
-	return &App{authService, host, port, s}
+	return &App{articleService, host, port, s}
 }
 
 func (a *App) Run() error {
