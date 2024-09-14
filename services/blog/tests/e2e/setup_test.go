@@ -22,6 +22,8 @@ func TestMain(m *testing.M) {
 	utils.HandleError(err)
 	defer conn.Close()
 
+	// TODO - Check auth service to know how e2e and grpc server bootstrap (primary.Bootstrap) works
+
 	client = auth.NewAuthClient(conn)
 
 	m.Run()

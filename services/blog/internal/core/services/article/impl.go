@@ -44,3 +44,23 @@ func (s *Service) Create(ctx context.Context, title, description, content string
 
 	return articleModel, nil
 }
+
+// Delete implements Api.
+func (s *Service) Delete(ctx context.Context, id int64) (*article.Article, error) {
+	panic("unimplemented")
+}
+
+// Get implements Api.
+func (s *Service) Get(ctx context.Context, id int64) (*article.Article, error) {
+	panic("unimplemented")
+}
+
+// Search implements Api.
+func (s *Service) Search(ctx context.Context, title string) ([]article.Article, error) {
+	panic("unimplemented")
+}
+
+// Update implements Api.
+func (s *Service) Update(ctx context.Context, id int64, changes *article.Article) (*article.Article, error) {
+	panic("unimplemented")
+}

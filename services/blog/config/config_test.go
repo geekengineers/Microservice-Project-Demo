@@ -13,7 +13,7 @@ func TestConfigsDirPath(t *testing.T) {
 }
 
 func TestDevelopmentConfig(t *testing.T) {
-	os.Setenv("KAVKA_ENV", "development")
+	os.Setenv("GO_ENV", "development")
 
 	config := Read()
 	require.NotEmpty(t, config)

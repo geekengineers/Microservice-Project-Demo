@@ -21,9 +21,22 @@ type Env int
 const (
 	Development Env = iota
 	Production
+	Test
 )
 
 var CurrentEnv Env = Development
+
+func (c Env) String() string {
+	if c == Development {
+		return "development"
+	} else if c == Production {
+		return "production"
+	} else if c == Test {
+		return "test"
+	} else {
+		return "UNKNOWN"
+	}
+}
 
 type (
 	Config struct {
@@ -55,8 +68,8 @@ func ConfigsDirPath() string {
 func Read() *Config {
 	var fileName string
 
-	// Load KAVKA ENV
-	env := strings.ToLower(os.Getenv("KAVKA_ENV"))
+	// Load GO_ENV
+	env := strings.ToLower(os.Getenv("GO_ENV"))
 
 	if len(strings.TrimSpace(env)) == 0 || env == "development" {
 		CurrentEnv = Development
@@ -64,8 +77,11 @@ func Read() *Config {
 	} else if env == "production" {
 		CurrentEnv = Production
 		fileName = "config.production.yml"
+	} else if env == "test" {
+		CurrentEnv = Test
+		fileName = "config.test.yml"
 	} else {
-		log.Fatalln(errors.New("Invalid env value set for variable KAVKA_ENV: " + env))
+		log.Fatalln(errors.New("Invalid env value set for variable GO_ENV: " + env))
 	}
 
 	// Load YAML configs
