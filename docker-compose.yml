@@ -1,0 +1,9 @@
+version: "3.9"
+
+services:
+    db:
+        network_mode: host
+        image: postgres:alpine
+        restart: always
+        environment:
+            POSTGRES_PASSWORD: samplesecretpassword

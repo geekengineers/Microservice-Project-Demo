@@ -23,7 +23,7 @@ func TestMain(m *testing.M) {
 	databaseFilename := fmt.Sprintf("%s/%s", wd, "../../database/test.db ")
 	dialector := sqlite.Open(databaseFilename)
 
-	repo, err := sqlite_adapter.NewUserRepository(dialector)
+	repo, err := sqlite_adapter.NewAuthRepositorySecondaryPort(dialector)
 	utils.HandleError(err)
 
 	redis_adapter.GetRedisTestInstance(func(redisClient *redis.Client) {

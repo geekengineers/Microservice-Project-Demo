@@ -8,11 +8,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type AuthRepositorySecondaryPort struct {
+type userRepository struct {
 	db *gorm.DB
 }
 
-func NewAuthRepositorySecondaryPort(dialector gorm.Dialector) (ports.AuthRepositorySecondaryPort, error) {
+func NewUserRepository(dialector gorm.Dialector) (ports.AuthRepositorySecondaryPort, error) {
 	db, err := GORM(dialector)
 	if err != nil {
 		return nil, err
@@ -20,10 +20,10 @@ func NewAuthRepositorySecondaryPort(dialector gorm.Dialector) (ports.AuthReposit
 
 	db.AutoMigrate(&user.User{})
 
-	return &AuthRepositorySecondaryPort{db}, nil
+	return &userRepository{db}, nil
 }
 
-func (a *AuthRepositorySecondaryPort) Create(ctx context.Context, u *user.User) (*user.User, error) {
+func (a *userRepository) Create(ctx context.Context, u *user.User) (*user.User, error) {
 	tx := a.db.Model(&user.User{}).Create(&u)
 	if tx.Error != nil {
 		return nil, tx.Error
@@ -32,7 +32,7 @@ func (a *AuthRepositorySecondaryPort) Create(ctx context.Context, u *user.User) 
 	return u, nil
 }
 
-func (a *AuthRepositorySecondaryPort) Find(ctx context.Context, id int64) (*user.User, error) {
+func (a *userRepository) Find(ctx context.Context, id int64) (*user.User, error) {
 	var u *user.User
 	tx := a.db.Model(&user.User{}).Where("id = ?", id).First(&u)
 	if tx.Error != nil {
@@ -42,7 +42,7 @@ func (a *AuthRepositorySecondaryPort) Find(ctx context.Context, id int64) (*user
 	return u, nil
 }
 
-func (a *AuthRepositorySecondaryPort) FindByPhoneNumber(ctx context.Context, phoneNumber string) (*user.User, error) {
+func (a *userRepository) FindByPhoneNumber(ctx context.Context, phoneNumber string) (*user.User, error) {
 	var u *user.User
 	tx := a.db.Model(&user.User{}).Where("phone_number = ?", phoneNumber).First(&u)
 	if tx.Error != nil {
@@ -52,7 +52,7 @@ func (a *AuthRepositorySecondaryPort) FindByPhoneNumber(ctx context.Context, pho
 	return u, nil
 }
 
-func (a *AuthRepositorySecondaryPort) Update(ctx context.Context, id int64, changes *user.User) (*user.User, error) {
+func (a *userRepository) Update(ctx context.Context, id int64, changes *user.User) (*user.User, error) {
 	u, err := a.Find(ctx, id)
 	if err != nil {
 		return nil, err
