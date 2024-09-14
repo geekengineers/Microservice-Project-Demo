@@ -74,3 +74,17 @@ func (m *OtpManager) Remove(ctx context.Context, phoneNumber string) error {
 
 	return nil
 }
+
+func (m *OtpManager) Get(ctx context.Context, phoneNumber string) (string, error) {
+	cmd := m.redisClient.Get(ctx, fmt.Sprintf("OTP:%v", phoneNumber))
+	if cmd.Err() != nil {
+		return "", cmd.Err()
+	}
+
+	result, err := cmd.Result()
+	if err != nil {
+		return "", err
+	}
+
+	return result, nil
+}

@@ -7,3 +7,9 @@ services:
         restart: always
         environment:
             POSTGRES_PASSWORD: samplesecretpassword
+    redis:
+        network_mode: host
+        image: "redis:alpine"
+        ports:
+            - "6379:6379"
+        restart: always

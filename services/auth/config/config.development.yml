@@ -1,8 +1,9 @@
 redis:
-    host:
-    port:
+    host: "127.0.0.1"
+    username: "redis"
     password:
-    db:
+    port: 6379
+    db: 0
 
 grpc:
     host: 0.0.0.0

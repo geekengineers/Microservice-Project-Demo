@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 
+	grpc_transformer "github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/primary/grpc/transformer"
 	auth_service "github.com/tahadostifam/go-hexagonal-architecture/internal/core/services/auth"
 	"github.com/tahadostifam/go-hexagonal-architecture/protobuf/auth"
 	"google.golang.org/grpc"
@@ -23,7 +24,16 @@ type authServerImpl struct {
 }
 
 func (a authServerImpl) Authenticate(ctx context.Context, req *auth.AuthenticateRequest) (*auth.AuthenticateResponse, error) {
-	panic("unimplemented")
+	user, err := a.authService.Authenticate(ctx, req.AccessToken)
+	if err != nil {
+		return nil, err
+	}
+
+	res := &auth.AuthenticateResponse{
+		User: grpc_transformer.DomainToGrpcUser(user),
+	}
+
+	return res, nil
 }
 
 func (a authServerImpl) Login(ctx context.Context, req *auth.LoginRequest) (*auth.LoginResponse, error) {
@@ -35,9 +45,18 @@ func (a authServerImpl) Login(ctx context.Context, req *auth.LoginRequest) (*aut
 	return &auth.LoginResponse{}, nil
 }
 
-// SubmitOtp implements auth.AuthServer.
-func (a authServerImpl) SubmitOtp(context.Context, *auth.SubmitOtpRequest) (*auth.SubmitOtpResponse, error) {
-	panic("unimplemented")
+func (a authServerImpl) SubmitOtp(ctx context.Context, req *auth.SubmitOtpRequest) (*auth.SubmitOtpResponse, error) {
+	user, accessToken, err := a.authService.SubmitOtp(ctx, req.PhoneNumber, int(req.OtpCode))
+	if err != nil {
+		return nil, err
+	}
+
+	res := &auth.SubmitOtpResponse{
+		User:        grpc_transformer.DomainToGrpcUser(user),
+		AccessToken: accessToken,
+	}
+
+	return res, nil
 }
 
 func NewGrpcServer(authService auth_service.Api, host string, port int) *App {
