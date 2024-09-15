@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net"
 
-	grpc_transformer "github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/primary/grpc/transformer"
-	auth_service "github.com/tahadostifam/go-hexagonal-architecture/internal/core/services/auth"
-	"github.com/tahadostifam/go-hexagonal-architecture/protobuf/auth"
+	"github.com/geekengineers/Microservice-Project-Demo/protobuf/auth"
+	grpc_transformer "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/primary/grpc/transformer"
+	auth_service "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/services/auth"
 	"google.golang.org/grpc"
 )
 

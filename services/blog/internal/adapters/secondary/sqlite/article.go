@@ -4,8 +4,8 @@ import (
 	"context"
 	"os/user"
 
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/ports"
+	"github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/domain/article"
+	"github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/ports"
 	"gorm.io/gorm"
 )
 

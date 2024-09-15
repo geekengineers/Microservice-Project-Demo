@@ -5,14 +5,14 @@ import (
 	"os"
 	"testing"
 
+	redis_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/redis"
+	sqlite_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/sqlite"
+	auth_service "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/services/auth"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/pkg/otp_manager"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/pkg/sms"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/utils"
 	"github.com/redis/go-redis/v9"
 	auth_manager "github.com/tahadostifam/go-auth-manager"
-	redis_adapter "github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/secondary/redis"
-	sqlite_adapter "github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/secondary/sqlite"
-	auth_service "github.com/tahadostifam/go-hexagonal-architecture/internal/core/services/auth"
-	"github.com/tahadostifam/go-hexagonal-architecture/pkg/otp_manager"
-	"github.com/tahadostifam/go-hexagonal-architecture/pkg/sms"
-	"github.com/tahadostifam/go-hexagonal-architecture/utils"
 	"gorm.io/driver/sqlite"
 )
 

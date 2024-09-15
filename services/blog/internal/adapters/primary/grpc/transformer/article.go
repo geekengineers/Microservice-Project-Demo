@@ -3,8 +3,8 @@ package grpc_transformer
 import (
 	"time"
 
-	article_domain "github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
-	"github.com/tahadostifam/go-hexagonal-architecture/protobuf/article"
+	"github.com/geekengineers/Microservice-Project-Demo/protobuf/article"
+	article_domain "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/domain/article"
 )
 
 func GrpcArticleToDomain(ar *article.Article) *article_domain.Article {

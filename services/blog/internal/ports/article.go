@@ -3,7 +3,7 @@ package ports
 import (
 	"context"
 
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
+	"github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/domain/article"
 )
 
 type ArticleRepositorySecondaryPort interface {

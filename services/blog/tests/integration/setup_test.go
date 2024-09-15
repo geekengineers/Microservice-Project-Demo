@@ -5,9 +5,9 @@ import (
 	"os"
 	"testing"
 
-	sqlite_adapter "github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/secondary/sqlite"
-	article_service "github.com/tahadostifam/go-hexagonal-architecture/internal/core/services/article"
-	"github.com/tahadostifam/go-hexagonal-architecture/utils"
+	sqlite_adapter "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/adapters/secondary/sqlite"
+	article_service "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/services/article"
+	"github.com/geekengineers/Microservice-Project-Demo/services/blog/utils"
 	"gorm.io/driver/sqlite"
 )
 

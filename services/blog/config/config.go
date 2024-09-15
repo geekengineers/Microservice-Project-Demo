@@ -41,8 +41,9 @@ func (c Env) String() string {
 type (
 	Config struct {
 		Grpc struct {
-			Host string `koanf:"host"`
-			Port int    `koanf:"port"`
+			Host           string `koanf:"host"`
+			Port           int    `koanf:"port"`
+			AuthServiceUrl string `koanf:"auth_service_url"`
 		} `koanf:"grpc"`
 	}
 )

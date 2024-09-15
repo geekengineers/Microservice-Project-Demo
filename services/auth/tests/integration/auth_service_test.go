@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/domain/user"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/user"
 )
 
 type AuthServiceSuite struct {

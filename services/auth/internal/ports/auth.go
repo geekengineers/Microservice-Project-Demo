@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/user"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/domain/user"
 )
 
 var (

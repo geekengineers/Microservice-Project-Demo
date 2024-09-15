@@ -3,8 +3,8 @@ package sqlite_adapter
 import (
 	"context"
 
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/user"
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/ports"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/domain/user"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/ports"
 	"gorm.io/gorm"
 )
 

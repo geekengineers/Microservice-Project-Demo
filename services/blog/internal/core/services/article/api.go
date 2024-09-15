@@ -3,7 +3,7 @@ package article_service
 import (
 	"context"
 
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
+	"github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/domain/article"
 )
 
 type Api interface {

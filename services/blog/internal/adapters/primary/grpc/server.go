@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"net"
 
-	grpc_transformer "github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/primary/grpc/transformer"
-	article_domain "github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
-	article_service "github.com/tahadostifam/go-hexagonal-architecture/internal/core/services/article"
-	"github.com/tahadostifam/go-hexagonal-architecture/protobuf/article"
+	"github.com/geekengineers/Microservice-Project-Demo/protobuf/article"
+	"github.com/geekengineers/Microservice-Project-Demo/protobuf/interceptor"
+	grpc_transformer "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/adapters/primary/grpc/transformer"
+	article_domain "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/domain/article"
+	article_service "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/services/article"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -96,8 +97,9 @@ func (a articleServerImpl) Update(ctx context.Context, req *article.UpdateReques
 	return res, nil
 }
 
-func NewGrpcServer(articleService article_service.Api, host string, port int) *App {
-	s := grpc.NewServer()
+func NewGrpcServer(articleService article_service.Api, authServiceUrl string, host string, port int) *App {
+	authInterceptor := interceptor.AuthInterceptor(authServiceUrl)
+	s := grpc.NewServer(grpc.ChainUnaryInterceptor(authInterceptor))
 
 	article.RegisterArticleServiceServer(s, articleServerImpl{articleService: articleService})
 

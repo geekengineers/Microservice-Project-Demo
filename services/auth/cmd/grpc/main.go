@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/tahadostifam/go-hexagonal-architecture/config"
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/primary"
-	redis_adapter "github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/secondary/redis"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/config"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/primary"
+	redis_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/redis"
 	"gorm.io/driver/sqlite"
 )
 

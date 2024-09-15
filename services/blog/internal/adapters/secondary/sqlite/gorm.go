@@ -3,7 +3,7 @@ package sqlite_adapter
 import (
 	"sync"
 
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
+	"github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/domain/article"
 	"gorm.io/gorm"
 )
 

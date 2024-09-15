@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
+	"github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/domain/article"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
 )
 
 type ArticleServiceSuite struct {

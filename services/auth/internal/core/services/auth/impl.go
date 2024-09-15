@@ -6,12 +6,12 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/domain/user"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/ports"
 	auth_manager "github.com/tahadostifam/go-auth-manager"
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/user"
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/ports"
 
-	"github.com/tahadostifam/go-hexagonal-architecture/pkg/otp_manager"
-	"github.com/tahadostifam/go-hexagonal-architecture/pkg/sms"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/pkg/otp_manager"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/pkg/sms"
 )
 
 const AccessTokenTTL = 20 * 24 * time.Hour

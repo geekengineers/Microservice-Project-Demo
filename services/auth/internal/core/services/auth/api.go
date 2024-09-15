@@ -3,7 +3,7 @@ package auth_service
 import (
 	"context"
 
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/user"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/domain/user"
 )
 
 type Api interface {

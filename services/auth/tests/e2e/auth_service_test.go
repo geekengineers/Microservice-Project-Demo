@@ -5,11 +5,11 @@ import (
 	"strconv"
 	"testing"
 
+	"github.com/geekengineers/Microservice-Project-Demo/protobuf/auth"
+	grpc_transformer "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/primary/grpc/transformer"
+	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/domain/user"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	grpc_transformer "github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/primary/grpc/transformer"
-	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/user"
-	"github.com/tahadostifam/go-hexagonal-architecture/protobuf/auth"
 )
 
 type AuthServiceSuite struct {
