@@ -1,12 +1,17 @@
 package grpc_adapter
 
 import (
+	"context"
 	"fmt"
 	"net"
 
+	grpc_transformer "github.com/tahadostifam/go-hexagonal-architecture/internal/adapters/primary/grpc/transformer"
+	article_domain "github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
 	article_service "github.com/tahadostifam/go-hexagonal-architecture/internal/core/services/article"
-	"github.com/tahadostifam/go-hexagonal-architecture/protobuf/auth"
+	"github.com/tahadostifam/go-hexagonal-architecture/protobuf/article"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type App struct {
@@ -17,14 +22,84 @@ type App struct {
 }
 
 type articleServerImpl struct {
-	auth.UnimplementedAuthServer
+	article.UnimplementedArticleServiceServer
 	articleService article_service.Api
+}
+
+func (a articleServerImpl) Create(ctx context.Context, req *article.CreateRequest) (*article.CreateResponse, error) {
+	ar, err := a.articleService.Create(ctx, req.Title, req.Description, req.Content, req.CoverImage)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, err.Error())
+	}
+
+	res := &article.CreateResponse{
+		Article: grpc_transformer.DomainToGrpcArticle(ar),
+	}
+
+	return res, nil
+}
+
+func (a articleServerImpl) Delete(ctx context.Context, req *article.DeleteRequest) (*article.DeleteResponse, error) {
+	err := a.articleService.Delete(ctx, req.Id)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, err.Error())
+	}
+
+	res := &article.DeleteResponse{}
+
+	return res, nil
+}
+
+func (a articleServerImpl) Find(ctx context.Context, req *article.FindRequest) (*article.FindResponse, error) {
+	ar, err := a.articleService.Find(ctx, req.Id)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, err.Error())
+	}
+
+	res := &article.FindResponse{
+		Article: grpc_transformer.DomainToGrpcArticle(ar),
+	}
+
+	return res, nil
+}
+
+func (a articleServerImpl) Search(ctx context.Context, req *article.SearchRequest) (*article.SearchResponse, error) {
+	articles, err := a.articleService.Search(ctx, req.Input)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, err.Error())
+	}
+
+	res := &article.SearchResponse{
+		Articles: grpc_transformer.DomainToGrpcArticles(articles),
+	}
+
+	return res, nil
+}
+
+func (a articleServerImpl) Update(ctx context.Context, req *article.UpdateRequest) (*article.UpdateResponse, error) {
+	changes := article_domain.Article{
+		Title:       req.Title,
+		Description: req.Description,
+		Content:     req.Content,
+		CoverImage:  req.CoverImage,
+	}
+
+	ar, err := a.articleService.Update(ctx, req.Id, &changes)
+	if err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, err.Error())
+	}
+
+	res := &article.UpdateResponse{
+		Article: grpc_transformer.DomainToGrpcArticle(ar),
+	}
+
+	return res, nil
 }
 
 func NewGrpcServer(articleService article_service.Api, host string, port int) *App {
 	s := grpc.NewServer()
 
-	auth.RegisterAuthServer(s, articleServerImpl{articleService: articleService})
+	article.RegisterArticleServiceServer(s, articleServerImpl{articleService: articleService})
 
 	return &App{articleService, host, port, s}
 }

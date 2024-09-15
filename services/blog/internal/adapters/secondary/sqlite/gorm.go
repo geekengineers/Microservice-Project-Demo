@@ -3,6 +3,7 @@ package sqlite_adapter
 import (
 	"sync"
 
+	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
 	"gorm.io/gorm"
 )
 
@@ -20,6 +21,8 @@ func GORM(dialector gorm.Dialector) (*gorm.DB, error) {
 		if err != nil {
 			return nil, err
 		}
+
+		db.AutoMigrate(&article.Article{})
 
 		instance = db
 

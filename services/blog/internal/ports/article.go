@@ -11,4 +11,5 @@ type ArticleRepositorySecondaryPort interface {
 	Update(ctx context.Context, id int64, changes *article.Article) (*article.Article, error)
 	Find(ctx context.Context, id int64) (*article.Article, error)
 	Search(ctx context.Context, title string) ([]article.Article, error)
+	Delete(ctx context.Context, id int64) error
 }

@@ -86,3 +86,18 @@ func (a *articleRepository) Update(ctx context.Context, id int64, changes *artic
 
 	return ar, nil
 }
+
+func (a *articleRepository) Delete(ctx context.Context, id int64) error {
+	var foundArticle *article.Article
+	tx := a.db.Model(&article.Article{}).Where("id = ?", id).First(&foundArticle)
+	if tx != nil {
+		return tx.Error
+	}
+
+	tx = a.db.Unscoped().Delete(&foundArticle)
+	if tx != nil {
+		return tx.Error
+	}
+
+	return nil
+}

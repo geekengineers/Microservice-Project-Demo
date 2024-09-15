@@ -2,15 +2,12 @@ package article_service
 
 import (
 	"context"
-	"time"
 
 	dto_object "github.com/tahadostifam/go-dto-object"
 	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/domain/article"
 	"github.com/tahadostifam/go-hexagonal-architecture/internal/core/dto"
 	"github.com/tahadostifam/go-hexagonal-architecture/internal/ports"
 )
-
-const AccessTokenTTL = 20 * 24 * time.Hour
 
 type Requirements struct {
 	Repo ports.ArticleRepositorySecondaryPort
@@ -24,8 +21,13 @@ func NewService(requirements *Requirements) *Service {
 	return &Service{requirements}
 }
 
-func (s *Service) Create(ctx context.Context, title, description, content string) (*article.Article, error) {
-	err := dto_object.Validate(dto.CreateArticleDto{Title: title, Description: description, Content: content})
+func (s *Service) Create(ctx context.Context, title, description, content, coverImage string) (*article.Article, error) {
+	err := dto_object.Validate(dto.CreateArticleDto{
+		Title:       title,
+		Description: description,
+		Content:     content,
+		CoverImage:  coverImage,
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +36,7 @@ func (s *Service) Create(ctx context.Context, title, description, content string
 		Title:       title,
 		Description: description,
 		Content:     content,
-		CoverImage:  "",
+		CoverImage:  coverImage,
 	}
 
 	articleModel, err = s.requirements.Repo.Create(ctx, articleModel)
@@ -45,22 +47,38 @@ func (s *Service) Create(ctx context.Context, title, description, content string
 	return articleModel, nil
 }
 
-// Delete implements Api.
-func (s *Service) Delete(ctx context.Context, id int64) (*article.Article, error) {
-	panic("unimplemented")
+func (s *Service) Delete(ctx context.Context, id int64) error {
+	err := s.requirements.Repo.Delete(ctx, id)
+	if err != nil {
+		return ErrNotFound
+	}
+
+	return nil
 }
 
-// Get implements Api.
-func (s *Service) Get(ctx context.Context, id int64) (*article.Article, error) {
-	panic("unimplemented")
+func (s *Service) Find(ctx context.Context, id int64) (*article.Article, error) {
+	article, err := s.requirements.Repo.Find(ctx, id)
+	if err != nil {
+		return nil, ErrNotFound
+	}
+
+	return article, nil
 }
 
-// Search implements Api.
 func (s *Service) Search(ctx context.Context, title string) ([]article.Article, error) {
-	panic("unimplemented")
+	articles, err := s.requirements.Repo.Search(ctx, title)
+	if err != nil {
+		return nil, ErrSearch
+	}
+
+	return articles, nil
 }
 
-// Update implements Api.
 func (s *Service) Update(ctx context.Context, id int64, changes *article.Article) (*article.Article, error) {
-	panic("unimplemented")
+	article, err := s.requirements.Repo.Update(ctx, id, changes)
+	if err != nil {
+		return nil, ErrUpdating
+	}
+
+	return article, nil
 }

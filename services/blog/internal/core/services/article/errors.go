@@ -7,4 +7,5 @@ var (
 	ErrUpdating = errors.New("article updating failed")
 	ErrDeletion = errors.New("article deletion failed")
 	ErrNotFound = errors.New("article not found")
+	ErrSearch   = errors.New("search operation failed")
 )

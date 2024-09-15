@@ -9,7 +9,7 @@ integration_test:
 proto:
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest	
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest			
-	protoc --go-grpc_out=. --go_out=. ./protobuf/auth/auth.proto	
+	protoc --go-grpc_out=. --go_out=. ./protobuf/article/article.proto	
 
 genrate_jwt_secret: 
 	ruby ./config/generate_jwt_secret.rb
