@@ -2,40 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-#home-slider {
-    width: 100%;
-    .swiper-slide {
-        position: relative;
-        height: 800px;
+@font-face {
+    font-family: "OpenSans-Bold";
+    src: url(./assets/fonts/OpenSans-Bold.ttf);
+}
 
-        @media screen and (max-width: 1200px) {
-            & {
-                height: 600px;
-            }
-        }
+@font-face {
+    font-family: "OpenSans-Light";
+    src: url(./assets/fonts/OpenSans-Light.ttf);
+}
 
-        @media screen and (max-width: 900px) {
-            & {
-                height: 500px;
-            }
-        }
+@font-face {
+    font-family: "OpenSans-Medium";
+    src: url(./assets/fonts/OpenSans-Medium.ttf);
+}
 
-        @media screen and (max-width: 670px) {
-            & {
-                height: 380px;
-            }
-        }
+@font-face {
+    font-family: "Vazir";
+    src: url(./assets/fonts/Vazirmatn-VariableFont_wght.ttf);
+}
 
-        img {
-            object-fit: cover;
-            width: 100%;
-            height: 100%;
-        }
-
-        .swiper-slider-metadata {
-            position: absolute;
-            left: 100px;
-            top: 100px;
-        }
-    }
+body {
+    font-family: "Vazir", "OpenSans";
 }

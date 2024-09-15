@@ -2,7 +2,12 @@
 module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                vazir: "Vazir",
+                openSans: "OpenSans",
+            },
+        },
     },
     plugins: [require("rippleui")],
     /** @type {import('rippleui').Config} */
