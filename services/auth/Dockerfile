@@ -4,9 +4,9 @@ WORKDIR /server
 
 COPY . .
 
-RUN apt update
+RUN apk update
 
-RUN apt install make
+RUN apk add make
 
 RUN make build
 
