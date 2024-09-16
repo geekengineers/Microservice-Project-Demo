@@ -13,3 +13,19 @@ services:
         ports:
             - "6379:6379"
         restart: always
+
+    auth_service:
+        restart: always
+        network_mode: host
+        build:
+            context: ./services/auth
+        ports:
+            - "8000:8000"
+
+    blog_service:
+        restart: always
+        network_mode: host
+        build:
+            context: ./services/auth
+        ports:
+            - "8001:8001"

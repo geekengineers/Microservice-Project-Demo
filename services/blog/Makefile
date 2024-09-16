@@ -6,5 +6,6 @@ dev:
 integration_test:
 	go test -cover -coverpkg ./internal/core/services/... ./tests/integration/...
 
-genrate_jwt_secret: 
-	ruby ./config/generate_jwt_secret.rb
+build:
+	export GO_ENV=production
+	go build ./cmd/grpc/main.go
