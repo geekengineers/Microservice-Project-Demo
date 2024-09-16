@@ -4,6 +4,10 @@ WORKDIR /server
 
 COPY . .
 
+RUN apt update
+
+RUN apt install make
+
 RUN make build
 
 CMD [ "./main" ]
