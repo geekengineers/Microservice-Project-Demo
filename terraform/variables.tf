@@ -13,5 +13,5 @@ variable "ssh_private_key" {
 }
 
 variable "instantiate_services_command" {
-  default = "docker-compose up -d"
+  default = "echo write-your-own-build-command"
 }
