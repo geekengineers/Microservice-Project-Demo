@@ -10,13 +10,8 @@ variable "ssh_username" {
 variable "ssh_private_key" {
   description = "Private key of the ssh server"
   type        = string
-  default     = "~/.ssh/id_rsa.pub"
 }
 
 variable "instantiate_services_command" {
-  default = "docker-compose up -d"
-}
-
-variable "destroy_services_command" {
   default = "docker-compose up -d"
 }
