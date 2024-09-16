@@ -8,6 +8,8 @@ RUN apk update
 
 RUN apk add make
 
+RUN go mod tidy
+
 RUN make build
 
 CMD [ "./main" ]
