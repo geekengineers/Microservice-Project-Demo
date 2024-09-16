@@ -5,7 +5,7 @@ import (
 
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/config"
 	grpc_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/primary/grpc"
-	sqlite_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/sqlite"
+	gorm_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/gorm"
 	auth_service "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/services/auth"
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/pkg/otp_manager"
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/pkg/sms"
@@ -29,7 +29,7 @@ type BootstrapRequirements struct {
 
 func Bootstrap(requirements *BootstrapRequirements) {
 	// Init secondary adapters
-	authRepo, err := sqlite_adapter.NewUserRepository(requirements.Dialector)
+	authRepo, err := gorm_adapter.NewUserRepository(requirements.Dialector)
 	utils.HandleError(err)
 
 	var smsService sms.Service

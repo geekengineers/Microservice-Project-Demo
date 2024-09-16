@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	sqlite_adapter "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/adapters/secondary/sqlite"
+	gorm_adapter "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/adapters/secondary/gorm"
 	article_service "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/services/article"
 	"github.com/geekengineers/Microservice-Project-Demo/services/blog/utils"
 	"gorm.io/driver/sqlite"
@@ -18,7 +18,7 @@ func TestMain(m *testing.M) {
 	databaseFilename := fmt.Sprintf("%s/%s", wd, "../../database/test.db ")
 	dialector := sqlite.Open(databaseFilename)
 
-	repo, err := sqlite_adapter.NewArticleRepository(dialector)
+	repo, err := gorm_adapter.NewArticleRepository(dialector)
 	utils.HandleError(err)
 
 	requirements := article_service.Requirements{

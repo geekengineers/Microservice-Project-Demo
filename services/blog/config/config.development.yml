@@ -2,3 +2,7 @@ grpc:
     host: 0.0.0.0
     port: 8001
     auth_service_url: "http://localhost:8000"
+
+db:
+    dsn: "host=localhost user=postgres password=mypassword dbname=postgres port=5432 sslmode=disable TimeZone=Asia/Tehran"
+    

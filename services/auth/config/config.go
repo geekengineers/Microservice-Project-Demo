@@ -53,6 +53,9 @@ type (
 			DB       int    `koanf:"db"`
 			Password string `koanf:"password"`
 		} `koanf:"redis"`
+		DB struct {
+			DSN string `koanf:"dsn"`
+		} `koanf:"db"`
 	}
 )
 

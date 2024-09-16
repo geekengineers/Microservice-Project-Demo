@@ -5,6 +5,9 @@ redis:
     port: 6379
     db: 0
 
+db:
+    dsn: "host=localhost user=postgres password=mypassword dbname=postgres port=5432 sslmode=disable TimeZone=Asia/Tehran"
+    
 grpc:
     host: 0.0.0.0
     port: 8000

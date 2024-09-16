@@ -4,14 +4,14 @@ import (
 	"github.com/geekengineers/Microservice-Project-Demo/services/blog/config"
 	"github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/adapters/primary"
 
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 )
 
 func main() {
 	cfg := config.Read()
 
 	// Init database dialector
-	dialector := sqlite.Open("./database/development.db")
+	dialector := postgres.Open(cfg.DB.DSN)
 
 	primary.Bootstrap(&primary.BootstrapRequirements{
 		Grpc: struct {

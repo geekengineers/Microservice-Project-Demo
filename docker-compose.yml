@@ -6,7 +6,12 @@ services:
         image: postgres:alpine
         restart: always
         environment:
-            POSTGRES_PASSWORD: samplesecretpassword
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: mypassword
+            POSTGRES_DB: postgres
+        ports:
+            - "5432:5432"
+
     redis:
         network_mode: host
         image: "redis:alpine"

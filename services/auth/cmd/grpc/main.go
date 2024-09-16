@@ -1,12 +1,10 @@
 package main
 
 import (
-	"fmt"
-
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/config"
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/primary"
 	redis_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/redis"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 )
 
 func main() {
@@ -19,7 +17,7 @@ func main() {
 		DB:       cfg.Redis.DB,
 	})
 
-	dialector := sqlite.Open(fmt.Sprintf("./database/%s.db", config.CurrentEnv.String()))
+	dialector := postgres.Open(cfg.DB.DSN)
 
 	// Bootstrap Application
 	primary.Bootstrap(&primary.BootstrapRequirements{

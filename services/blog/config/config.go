@@ -45,6 +45,9 @@ type (
 			Port           int    `koanf:"port"`
 			AuthServiceUrl string `koanf:"auth_service_url"`
 		} `koanf:"grpc"`
+		DB struct {
+			DSN string `koanf:"dsn"`
+		} `koanf:"db"`
 	}
 )
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	grpc_adapter "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/adapters/primary/grpc"
-	sqlite_adapter "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/adapters/secondary/sqlite"
+	gorm_adapter "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/adapters/secondary/gorm"
 	article_service "github.com/geekengineers/Microservice-Project-Demo/services/blog/internal/core/services/article"
 	"github.com/geekengineers/Microservice-Project-Demo/services/blog/utils"
 	"gorm.io/gorm"
@@ -21,7 +21,7 @@ type BootstrapRequirements struct {
 
 func Bootstrap(requirements *BootstrapRequirements) {
 	// Init secondary adapters
-	articleRepo, err := sqlite_adapter.NewArticleRepository(requirements.Dialector)
+	articleRepo, err := gorm_adapter.NewArticleRepository(requirements.Dialector)
 	utils.HandleError(err)
 
 	// Init business logic

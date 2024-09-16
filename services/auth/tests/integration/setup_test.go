@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
+	gorm_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/gorm"
 	redis_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/redis"
-	sqlite_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/sqlite"
 	auth_service "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/core/services/auth"
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/pkg/otp_manager"
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/pkg/sms"
@@ -23,7 +23,7 @@ func TestMain(m *testing.M) {
 	databaseFilename := fmt.Sprintf("%s/%s", wd, "../../database/test.db ")
 	dialector := sqlite.Open(databaseFilename)
 
-	repo, err := sqlite_adapter.NewUserRepository(dialector)
+	repo, err := gorm_adapter.NewUserRepository(dialector)
 	utils.HandleError(err)
 
 	redis_adapter.GetRedisTestInstance(func(redisClient *redis.Client) {

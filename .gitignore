@@ -6,3 +6,4 @@ terraform/.terraform.tfstate.lock.info
 .ruby-lsp
 
 config.production.yml**
+*.db**
