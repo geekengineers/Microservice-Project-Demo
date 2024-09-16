@@ -6,9 +6,10 @@ message User {
     string id = 1;
     string name = 2;
     string phone_number = 3;
+    string role = 4;
 }
 
-service Auth {
+service AuthService {
     rpc Login(LoginRequest) returns (LoginResponse) {}
     rpc SubmitOtp(SubmitOtpRequest) returns (SubmitOtpResponse) {}
     rpc Authenticate(AuthenticateRequest) returns (AuthenticateResponse) {}

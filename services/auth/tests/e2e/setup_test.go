@@ -2,27 +2,24 @@ package auth_integration_test
 
 import (
 	"fmt"
+	"net/http"
 	"os"
 	"testing"
+	"time"
 
-	"github.com/geekengineers/Microservice-Project-Demo/protobuf/auth"
+	"github.com/geekengineers/Microservice-Project-Demo/protobuf/auth/authconnect"
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/primary"
 	redis_adapter "github.com/geekengineers/Microservice-Project-Demo/services/auth/internal/adapters/secondary/redis"
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/pkg/otp_manager"
 	"github.com/geekengineers/Microservice-Project-Demo/services/auth/utils"
 	"github.com/redis/go-redis/v9"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
 	"gorm.io/driver/sqlite"
 )
 
-var client auth.AuthClient
+var client authconnect.AuthServiceClient
 var otpManager otp_manager.OtpManager
 
 func TestMain(m *testing.M) {
-	// signalCh := make(chan os.Signal, 1)
-	// signal.Notify(signalCh, os.Interrupt)
-
 	err := os.Setenv("GO_ENV", "test")
 	utils.HandleError(err)
 
@@ -49,15 +46,11 @@ func TestMain(m *testing.M) {
 			})
 		}()
 
-		conn, err := grpc.NewClient(fmt.Sprintf("%s:%d", "127.0.0.1", grpc_port), grpc.WithTransportCredentials(
-			insecure.NewCredentials(),
-		))
-		utils.HandleError(err)
-		defer conn.Close()
-
 		otpManager = *otp_manager.NewOtpManger(redisClient)
 
-		client = auth.NewAuthClient(conn)
+		client = authconnect.NewAuthServiceClient(http.DefaultClient, fmt.Sprintf("%s:%d", "http://127.0.0.1", grpc_port))
+
+		time.Sleep(2 * time.Second)
 
 		m.Run()
 	})

@@ -1,0 +1,27 @@
+version: v2
+managed:
+    enabled: true
+    override:
+        - file_option: go_package_prefix
+          value: github.com/geekengineers/Microservice-Project-Demo
+
+plugins:
+    # Generate GoLang
+    - local: protoc-gen-go
+      out: .
+      opt: paths=source_relative
+    - local: protoc-gen-connect-go
+      out: .
+      opt: paths=source_relative
+
+    # Generate TypeScript
+    # - local: protoc-gen-es
+    #   out: protobuf/gen/es
+    #   opt:
+    #       - target=ts
+    #       - import_extension=.ts
+    # - local: protoc-gen-connect-es
+    #   out: protobuf/gen/es
+    #   opt:
+    #       - target=ts
+    #       - import_extension=.ts

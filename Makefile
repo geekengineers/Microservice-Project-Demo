@@ -1,8 +1,8 @@
 proto:
+	go install github.com/bufbuild/buf/cmd/buf@latest
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-
-	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest			
-
-	protoc --go-grpc_out=. --go_out=. ./protobuf/**/**.proto
+	go install connectrpc.com/connect/cmd/protoc-gen-connect-go@latest
+	buf generate
+	
 
 
