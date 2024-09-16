@@ -15,17 +15,21 @@ services:
         restart: always
 
     auth_service:
+        container_name: "microservice_project_demo_auth_service"
         restart: always
         network_mode: host
         build:
-            context: ./services/auth
+            context: .
+            dockerfile: ./auth_service.Dockerfile
         ports:
             - "8000:8000"
 
     blog_service:
+        container_name: "microservice_project_demo_blog_service"
         restart: always
         network_mode: host
         build:
-            context: ./services/auth
+            context: .
+            dockerfile: ./blog_service.Dockerfile
         ports:
             - "8001:8001"
